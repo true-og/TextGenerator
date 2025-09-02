@@ -14,15 +14,23 @@ public class SettingsUIListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (!ChatColor.translateAlternateColorCodes('&', e.getView().getTitle()).equals(ChatColor.GREEN +
-                "TextGenerator settings") && !ChatColor.translateAlternateColorCodes('&', e.getView().getTitle()).equals(ChatColor.GREEN +
-                "TextGenerator edit menu")) {
+
+        if (!ChatColor.translateAlternateColorCodes('&', e.getView().getTitle())
+                .equals(ChatColor.GREEN + "TextGenerator settings")
+                && !ChatColor.translateAlternateColorCodes('&', e.getView().getTitle())
+                        .equals(ChatColor.GREEN + "TextGenerator edit menu"))
+        {
+
             return;
+
         }
-        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem() == null)
+            return;
         Player player = (Player) e.getWhoClicked();
         e.setCancelled(true);
         switch (e.getRawSlot()) {
+
             case SettingsUI.FONT_SIZE_INDEX:
                 new FontSizeSearchUI(player);
                 break;
@@ -46,52 +54,83 @@ public class SettingsUIListener implements Listener {
                 break;
             case SettingsUI.FONT_INDEX:
                 new FontSearchUI(player);
+
         }
+
     }
 
     private void toggleDragToMove(Player player) {
-        if (!TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().containsKey(player.getUniqueId())) {
+
+        if (!TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts()
+                .containsKey(player.getUniqueId()))
+        {
+
             boolean dragToMove = !ConfigManager.isDragToMove();
             ConfigManager.setDragToMove(dragToMove);
             new SettingsUI(player);
+
         } else {
-            CurrentEditedText currentEditedText =
-                    TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().get(player.getUniqueId());
+
+            CurrentEditedText currentEditedText = TextGenerator.getInstance().getTextGeneratorCommand()
+                    .getCurrentEditedTexts().get(player.getUniqueId());
             boolean dragToMove = !currentEditedText.getTextInstance().isDragToMove();
             currentEditedText.setDragToMoveTasks(dragToMove);
-            player.sendMessage(MessagesManager.getMessage("changedValueOfCurrentText.success", "drag to move",
-                    dragToMove));
+            player.sendMessage(
+                    MessagesManager.getMessage("changedValueOfCurrentText.success", "drag to move", dragToMove));
             player.closeInventory();
+
         }
+
     }
 
     private void placeRangeIndexClicked(Player player) {
-        if (!TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().containsKey(player.getUniqueId())) {
+
+        if (!TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts()
+                .containsKey(player.getUniqueId()))
+        {
+
             new PlacementRangeSearchUI(player);
+
         } else {
-            if (TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().get(player.getUniqueId()).getTextInstance().isDragToMove()) {
+
+            if (TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().get(player.getUniqueId())
+                    .getTextInstance().isDragToMove())
+            {
+
                 new PlacementRangeSearchUI(player);
+
             } else {
+
                 player.sendMessage(MessagesManager.getMessage("placementRangeIndexUIDenied"));
                 player.closeInventory();
+
             }
+
         }
+
     }
 
     private void toggleUnderline(Player player) {
-        if (!TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().containsKey(player.getUniqueId())) {
+
+        if (!TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts()
+                .containsKey(player.getUniqueId()))
+        {
+
             boolean underline = !ConfigManager.isUnderline();
             ConfigManager.setUnderline(underline);
             new SettingsUI(player);
+
         } else {
-            CurrentEditedText currentEditedText =
-                    TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().get(player.getUniqueId());
+
+            CurrentEditedText currentEditedText = TextGenerator.getInstance().getTextGeneratorCommand()
+                    .getCurrentEditedTexts().get(player.getUniqueId());
             boolean underline = !currentEditedText.getTextInstance().isUnderline();
             currentEditedText.setUnderline(underline);
-            player.sendMessage(MessagesManager.getMessage("changedValueOfCurrentText.success", "underline",
-                    underline));
+            player.sendMessage(MessagesManager.getMessage("changedValueOfCurrentText.success", "underline", underline));
             player.closeInventory();
+
         }
+
     }
 
 }

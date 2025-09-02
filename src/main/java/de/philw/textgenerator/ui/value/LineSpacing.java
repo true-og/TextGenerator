@@ -7,18 +7,12 @@ import java.util.List;
 
 public enum LineSpacing {
 
-    ZERO(0, SkullData.ZERO, Arrays.asList("0", "ZERO")),
-    ONE(1, SkullData.ONE, Arrays.asList("1", "ONE")),
-    TWO(2, SkullData.TWO, Arrays.asList("2", "TWO")),
-    THREE(3, SkullData.THREE, Arrays.asList("3", "THREE")),
-    FOUR(4, SkullData.FOUR, Arrays.asList("4", "FOUR")),
-    FIVE(5, SkullData.FIVE, Arrays.asList("5", "FIVE")),
-    SIX(6, SkullData.SIX, Arrays.asList("6", "SIX")),
-    SEVEN(7, SkullData.SEVEN, Arrays.asList("7", "SEVEN")),
-    EIGHT(8, SkullData.EIGHT, Arrays.asList("8", "EIGHT")),
-    NINE(9, SkullData.NINE, Arrays.asList("9", "NINE")),
-    TEN(10, SkullData.TEN, Arrays.asList("10", "TEN")),
-    ELEVEN(11, SkullData.ELEVEN, Arrays.asList("11", "ELEVEN")),
+    ZERO(0, SkullData.ZERO, Arrays.asList("0", "ZERO")), ONE(1, SkullData.ONE, Arrays.asList("1", "ONE")),
+    TWO(2, SkullData.TWO, Arrays.asList("2", "TWO")), THREE(3, SkullData.THREE, Arrays.asList("3", "THREE")),
+    FOUR(4, SkullData.FOUR, Arrays.asList("4", "FOUR")), FIVE(5, SkullData.FIVE, Arrays.asList("5", "FIVE")),
+    SIX(6, SkullData.SIX, Arrays.asList("6", "SIX")), SEVEN(7, SkullData.SEVEN, Arrays.asList("7", "SEVEN")),
+    EIGHT(8, SkullData.EIGHT, Arrays.asList("8", "EIGHT")), NINE(9, SkullData.NINE, Arrays.asList("9", "NINE")),
+    TEN(10, SkullData.TEN, Arrays.asList("10", "TEN")), ELEVEN(11, SkullData.ELEVEN, Arrays.asList("11", "ELEVEN")),
     TWELVE(12, SkullData.TWELVE, Arrays.asList("12", "TWELVE")),
     THIRTEEN(13, SkullData.THIRTEEN, Arrays.asList("13", "THIRTEEN")),
     FOURTEEN(14, SkullData.FOURTEEN, Arrays.asList("14", "FOURTEEN")),
@@ -64,29 +58,41 @@ public enum LineSpacing {
     private final List<String> searchKeywords;
 
     LineSpacing(int number, String skullData, List<String> searchKeywords) {
+
         this.number = number;
         this.skullData = skullData;
         this.searchKeywords = searchKeywords;
+
     }
 
     public int getNumber() {
+
         return number;
+
     }
 
     public String getSkullData() {
+
         return skullData;
+
     }
 
     public List<String> getSearchKeywords() {
+
         return searchKeywords;
+
     }
 
     public static int getMinLineSpacing() {
+
         return 0;
+
     }
 
     public static int getMaxLineSpacing() {
+
         return 50;
+
     }
 
 }

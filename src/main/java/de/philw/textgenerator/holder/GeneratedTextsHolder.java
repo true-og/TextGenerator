@@ -14,29 +14,46 @@ public class GeneratedTextsHolder extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
+
         return "textgeneratorGeneratedTexts";
+
     }
 
     @Override
     public @NotNull String getAuthor() {
+
         return TextGenerator.getInstance().getDescription().getAuthors().get(0);
+
     }
 
     @Override
     public @NotNull String getVersion() {
+
         return TextGenerator.getInstance().getDescription().getVersion();
+
     }
 
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
+
         StringBuilder outPut = new StringBuilder(ChatColor.GREEN + "Generated texts: " + ChatColor.GRAY);
-        for (String uuid: Objects.requireNonNull(GeneratedTextsManager.getGeneratedTexts().getConfigurationSection("")).getKeys(false)) {
+        for (String uuid : Objects.requireNonNull(GeneratedTextsManager.getGeneratedTexts().getConfigurationSection(""))
+                .getKeys(false))
+        {
+
             String text = GeneratedTextsManager.getGeneratedTexts().getString(uuid + ".text");
             outPut.append(text).append("; ");
+
         }
+
         if (outPut.toString().equals(ChatColor.GREEN + "Generated texts: " + ChatColor.GRAY)) {
+
             outPut.append("You haven't generated any text's yet");
+
         }
-        return outPut.substring(0, outPut.length()-2);
+
+        return outPut.substring(0, outPut.length() - 2);
+
     }
+
 }

@@ -12,18 +12,26 @@ public class NoMoveWhileGenerateListener implements Listener {
     private static final ArrayList<UUID> disallowedToMove = new ArrayList<>();
 
     public static void add(UUID uuid) {
+
         disallowedToMove.add(uuid);
+
     }
 
     public static void remove(UUID uuid) {
+
         disallowedToMove.remove(uuid);
+
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
+
         if (disallowedToMove.contains(e.getPlayer().getUniqueId())) {
+
             e.setCancelled(true);
+
         }
+
     }
 
 }

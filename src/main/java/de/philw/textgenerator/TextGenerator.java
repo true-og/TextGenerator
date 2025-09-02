@@ -23,22 +23,29 @@ public final class TextGenerator extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         new Metrics(this, 19024);
 
         INSTANCE = this;
 
         registerEventsAndCommandAndManager();
+
     }
 
     @Override
     public void onDisable() {
-        for (CurrentEditedText currentEditedText: textGeneratorCommand.getCurrentEditedTexts().values()) {
+
+        for (CurrentEditedText currentEditedText : textGeneratorCommand.getCurrentEditedTexts().values()) {
+
             currentEditedText.save();
             currentEditedText.removeMetaDataFromPreviewedBlocks();
+
         }
+
     }
 
     private void registerEventsAndCommandAndManager() {
+
         // Manager
         ConfigManager.setUpConfig();
         GeneratedTextsManager.setUpManager();
@@ -58,23 +65,34 @@ public final class TextGenerator extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BlockDestroyListener(), this);
 
         // Holder
-        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") == null) return;
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") == null)
+            return;
         new GeneratedTextsHolder().register();
+
     }
 
     public static TextGenerator getInstance() {
+
         return INSTANCE;
+
     }
 
     public static String getMessageBeginning() {
+
         return "[TextGenerator] ";
+
     }
 
     public SearchUIListener getSearchUIListener() {
+
         return searchUIListener;
+
     }
 
     public TextGeneratorCommand getTextGeneratorCommand() {
+
         return textGeneratorCommand;
+
     }
+
 }

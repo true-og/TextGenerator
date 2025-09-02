@@ -13,55 +13,88 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class FontSizeSearchUI extends SearchUI {
+
     public FontSizeSearchUI(Player player) {
+
         super(ChatColor.GREEN + "Select size", "Search a font size...", player);
+
     }
 
     @Override
     public ArrayList<ItemStack> getSearchedItems(String searched) {
+
         ArrayList<ItemStack> searchedItems = new ArrayList<>();
         for (FontSize fontSize : FontSize.values()) {
+
             for (String searchKeyword : fontSize.getSearchKeywords()) {
+
                 if (searchKeyword.contains(searched.toUpperCase())) {
+
                     searchedItems.add(getFontSizeItemStack(fontSize));
                     break;
+
                 }
+
             }
+
         }
+
         return searchedItems;
+
     }
 
     @Override
     public void updateAllItems() {
+
         allItems.clear();
         for (FontSize fontSize : FontSize.values()) {
+
             allItems.add(getFontSizeItemStack(fontSize));
+
         }
+
     }
 
     private ItemStack getFontSizeItemStack(FontSize fontSize) {
+
         int size = fontSize.getNumber();
         ItemStack itemStack = UIUtil.getSkullByString(fontSize.getSkullData());
         ItemMeta itemMeta = Objects.requireNonNull(itemStack).getItemMeta();
         Objects.requireNonNull(itemMeta).setDisplayName(ChatColor.GREEN + String.valueOf(size));
         if (TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().containsKey(uuid)) {
-            if (size == TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().get(uuid).getTextInstance().getFontSize()) {
+
+            if (size == TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().get(uuid)
+                    .getTextInstance().getFontSize())
+            {
+
                 itemMeta.setLore(UIUtil.getLore(ChatColor.RED, "You have already assigned this value"));
+
             } else {
-                itemMeta.setLore(UIUtil.getLore(ChatColor.YELLOW, "Click to change the font size of your" +
-                        " current edited text to " + size));
+
+                itemMeta.setLore(UIUtil.getLore(ChatColor.YELLOW,
+                        "Click to change the font size of your" + " current edited text to " + size));
+
             }
+
         } else {
+
             if (size == ConfigManager.getFontSize()) {
+
                 itemMeta.setLore(UIUtil.getLore(ChatColor.RED, "You have already assigned this value"));
+
             } else {
-                itemMeta.setLore(UIUtil.getLore(ChatColor.YELLOW, "Click to change the default font size " +
-                        "to " + size));
+
+                itemMeta.setLore(
+                        UIUtil.getLore(ChatColor.YELLOW, "Click to change the default font size " + "to " + size));
+
             }
+
         }
+
         itemMeta.setLocalizedName(SearchUI.FONT_SIZE_SEARCH_UI + ";" + size);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
+
     }
 
 }

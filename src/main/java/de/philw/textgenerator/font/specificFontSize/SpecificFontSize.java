@@ -6,14 +6,23 @@ import de.philw.textgenerator.utils.Direction;
 public abstract class SpecificFontSize {
 
     public static SpecificFontSize getClassFromFontSize(int fontSize) {
+
         if (fontSize == 6) {
+
             return new SizeSix();
+
         } else if (fontSize == 7) {
+
             return new SizeSeven();
+
         } else if (fontSize == 8) {
+
             return new SizeEight();
+
         }
+
         return null;
+
     }
 
     public abstract String[][] getA(Block block, Direction direction);
@@ -97,40 +106,52 @@ public abstract class SpecificFontSize {
     public abstract String[][] getBackslash(Block block, Direction direction);
 
     protected String getRightTopNothingStair(Block block, Direction direction) {
-        return "minecraft:" + block.getSlabAndStairsID().get(1).toLowerCase() + "[facing=" +
-                direction.getOppositeDirection().toString().toLowerCase().split("_")[0] + ",half=bottom," +
-                "shape=straight," +
-                "waterlogged=false]";
+
+        return "minecraft:" + block.getSlabAndStairsID().get(1).toLowerCase() + "[facing="
+                + direction.getOppositeDirection().toString().toLowerCase().split("_")[0] + ",half=bottom,"
+                + "shape=straight," + "waterlogged=false]";
+
     }
 
     protected String getRightBottomNothingStair(Block block, Direction direction) {
-        return "minecraft:" + block.getSlabAndStairsID().get(1).toLowerCase() + "[facing=" +
-                direction.getOppositeDirection().toString().toLowerCase().split("_")[0] + ",half=top," +
-                "shape=straight," +
-                "waterlogged=false]";
+
+        return "minecraft:" + block.getSlabAndStairsID().get(1).toLowerCase() + "[facing="
+                + direction.getOppositeDirection().toString().toLowerCase().split("_")[0] + ",half=top,"
+                + "shape=straight," + "waterlogged=false]";
+
     }
 
     protected String getLeftTopNothingStair(Block block, Direction direction) {
-        return "minecraft:" + block.getSlabAndStairsID().get(1).toLowerCase() + "[facing=" +
-                direction.toString().toLowerCase().split("_")[0] + ",half=bottom,shape=straight," +
-                "waterlogged=false]";
+
+        return "minecraft:" + block.getSlabAndStairsID().get(1).toLowerCase() + "[facing="
+                + direction.toString().toLowerCase().split("_")[0] + ",half=bottom,shape=straight,"
+                + "waterlogged=false]";
+
     }
 
     protected String getLeftBottomNothingStair(Block block, Direction direction) {
-        return "minecraft:" + block.getSlabAndStairsID().get(1).toLowerCase() + "[facing=" +
-                direction.toString().toLowerCase().split("_")[0] + ",half=top,shape=straight,waterlogged=false]";
+
+        return "minecraft:" + block.getSlabAndStairsID().get(1).toLowerCase() + "[facing="
+                + direction.toString().toLowerCase().split("_")[0] + ",half=top,shape=straight,waterlogged=false]";
+
     }
 
     protected String getBottomSlap(Block block) {
+
         return "minecraft:" + block.getSlabAndStairsID().get(0).toLowerCase() + "[type=bottom,waterlogged=false]";
+
     }
 
     protected String getTopSlap(Block block) {
+
         return "minecraft:" + block.getSlabAndStairsID().get(0).toLowerCase() + "[type=top,waterlogged=false]";
+
     }
 
     protected String getNormalBlock(Block block) {
+
         return "minecraft:" + block.toString().toLowerCase();
+
     }
 
 }

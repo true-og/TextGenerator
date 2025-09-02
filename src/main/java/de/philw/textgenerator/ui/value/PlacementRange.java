@@ -7,12 +7,9 @@ import java.util.List;
 
 public enum PlacementRange {
 
-    FIVE(5, SkullData.FIVE, Arrays.asList("5", "FIVE")),
-    SIX(6, SkullData.SIX, Arrays.asList("6", "SIX")),
-    SEVEN(7, SkullData.SEVEN, Arrays.asList("7", "SEVEN")),
-    EIGHT(8, SkullData.EIGHT, Arrays.asList("8", "EIGHT")),
-    NINE(9, SkullData.NINE, Arrays.asList("9", "NINE")),
-    TEN(10, SkullData.TEN, Arrays.asList("10", "TEN")),
+    FIVE(5, SkullData.FIVE, Arrays.asList("5", "FIVE")), SIX(6, SkullData.SIX, Arrays.asList("6", "SIX")),
+    SEVEN(7, SkullData.SEVEN, Arrays.asList("7", "SEVEN")), EIGHT(8, SkullData.EIGHT, Arrays.asList("8", "EIGHT")),
+    NINE(9, SkullData.NINE, Arrays.asList("9", "NINE")), TEN(10, SkullData.TEN, Arrays.asList("10", "TEN")),
     ELEVEN(11, SkullData.ELEVEN, Arrays.asList("11", "ELEVEN")),
     TWELVE(12, SkullData.TWELVE, Arrays.asList("12", "TWELVE")),
     THIRTEEN(13, SkullData.THIRTEEN, Arrays.asList("13", "THIRTEEN")),
@@ -23,14 +20,10 @@ public enum PlacementRange {
     EIGHTEEN(18, SkullData.EIGHTEEN, Arrays.asList("18", "EIGHTEEN")),
     NINETEEN(19, SkullData.NINETEEN, Arrays.asList("19", "NINETEEN")),
     TWENTY(20, SkullData.TWENTY, Arrays.asList("20", "TWENTY")),
-    TWENTY_ONE(21, SkullData.TWENTY_ONE, Arrays.asList("21", "TWENTY_ONE",
-            "TWENTYONE")),
-    TWENTY_TWO(22, SkullData.TWENTY_TWO, Arrays.asList("22", "TWENTY_TWO",
-            "TWENTYTWO")),
-    TWENTY_THREE(23, SkullData.TWENTY_THREE, Arrays.asList("23",
-            "TWENTY_THREE", "TWENTYTHREE")),
-    TWENTY_FOUR(24, SkullData.TWENTY_FOUR, Arrays.asList("24", "TWENTY_FOUR",
-            "TWENTYFOUR")),
+    TWENTY_ONE(21, SkullData.TWENTY_ONE, Arrays.asList("21", "TWENTY_ONE", "TWENTYONE")),
+    TWENTY_TWO(22, SkullData.TWENTY_TWO, Arrays.asList("22", "TWENTY_TWO", "TWENTYTWO")),
+    TWENTY_THREE(23, SkullData.TWENTY_THREE, Arrays.asList("23", "TWENTY_THREE", "TWENTYTHREE")),
+    TWENTY_FOUR(24, SkullData.TWENTY_FOUR, Arrays.asList("24", "TWENTY_FOUR", "TWENTYFOUR")),
     TWENTY_FIVE(25, SkullData.TWENTY_FIVE, Arrays.asList("25", "TWENTY_FIVE", "TWENTYFIVE")),
     TWENTY_SIX(26, SkullData.TWENTY_SIX, Arrays.asList("26", "TWENTY_SIX", "TWENTYSIX")),
     TWENTY_SEVEN(27, SkullData.TWENTY_SEVEN, Arrays.asList("27", "TWENTY_SEVEN", "TWENTYSEVEN")),
@@ -112,29 +105,41 @@ public enum PlacementRange {
     private final List<String> searchKeywords;
 
     PlacementRange(int number, String skullData, List<String> searchKeywords) {
+
         this.number = number;
         this.skullData = skullData;
         this.searchKeywords = searchKeywords;
+
     }
 
     public int getNumber() {
+
         return number;
+
     }
 
     public String getSkullData() {
+
         return skullData;
+
     }
 
     public List<String> getSearchKeywords() {
+
         return searchKeywords;
+
     }
 
     public static int getMinPlaceRange() {
+
         return 5;
+
     }
 
     public static int getMaxPlaceRange() {
+
         return 99;
+
     }
 
 }

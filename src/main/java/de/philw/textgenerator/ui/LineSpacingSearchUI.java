@@ -14,56 +14,87 @@ import java.util.Objects;
 
 public class LineSpacingSearchUI extends SearchUI {
 
-
     public LineSpacingSearchUI(Player player) {
+
         super(ChatColor.GREEN + "Select a line spacing", "Search a line spacing...", player);
+
     }
 
     @Override
     public ArrayList<ItemStack> getSearchedItems(String searched) {
+
         ArrayList<ItemStack> searchedItems = new ArrayList<>();
         for (LineSpacing lineSpacing : LineSpacing.values()) {
+
             for (String searchKeyword : lineSpacing.getSearchKeywords()) {
+
                 if (searchKeyword.contains(searched.toUpperCase())) {
+
                     searchedItems.add(getLineSpacingItemStack(lineSpacing));
                     break;
+
                 }
+
             }
+
         }
+
         return searchedItems;
+
     }
 
     @Override
     public void updateAllItems() {
+
         allItems.clear();
         for (LineSpacing lineSpacing : LineSpacing.values()) {
+
             allItems.add(getLineSpacingItemStack(lineSpacing));
+
         }
+
     }
 
     private ItemStack getLineSpacingItemStack(LineSpacing lineSpacing) {
+
         int lineSpacingNumber = lineSpacing.getNumber();
         ItemStack itemStack = UIUtil.getSkullByString(lineSpacing.getSkullData());
         ItemMeta itemMeta = Objects.requireNonNull(itemStack).getItemMeta();
         Objects.requireNonNull(itemMeta).setDisplayName(ChatColor.GREEN + String.valueOf(lineSpacingNumber));
         if (TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().containsKey(uuid)) {
-            if (lineSpacingNumber == TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts().get(uuid).getTextInstance().getLineSpacing()) {
+
+            if (lineSpacingNumber == TextGenerator.getInstance().getTextGeneratorCommand().getCurrentEditedTexts()
+                    .get(uuid).getTextInstance().getLineSpacing())
+            {
+
                 itemMeta.setLore(UIUtil.getLore(ChatColor.RED, "You have already assigned this value"));
+
             } else {
-                itemMeta.setLore(UIUtil.getLore(ChatColor.YELLOW, "Click to change the line spacing of your" +
-                        " current edited text to " + lineSpacingNumber));
+
+                itemMeta.setLore(UIUtil.getLore(ChatColor.YELLOW,
+                        "Click to change the line spacing of your" + " current edited text to " + lineSpacingNumber));
+
             }
+
         } else {
+
             if (lineSpacingNumber == ConfigManager.getLineSpacing()) {
+
                 itemMeta.setLore(UIUtil.getLore(ChatColor.RED, "You have already assigned this value"));
+
             } else {
-                itemMeta.setLore(UIUtil.getLore(ChatColor.YELLOW, "Click to change the default line spacing " +
-                        "to " + lineSpacingNumber));
+
+                itemMeta.setLore(UIUtil.getLore(ChatColor.YELLOW,
+                        "Click to change the default line spacing " + "to " + lineSpacingNumber));
+
             }
+
         }
+
         itemMeta.setLocalizedName(SearchUI.LINE_SPACING_SEARCH_UI + ";" + lineSpacingNumber);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
+
     }
 
 }
