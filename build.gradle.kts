@@ -7,7 +7,7 @@ plugins {
     id("java") // Import Java plugin.
     id("java-library") // Import Java Library plugin.
     id("com.diffplug.spotless") version "7.0.4" // Import Spotless plugin.
-    id("com.gradleup.shadow") version "8.3.6" // Import Shadow plugin.
+    id("com.gradleup.shadow") version "8.3.8" // Import Shadow plugin.
     id("checkstyle") // Import Checkstyle plugin.
     eclipse // Import Eclipse plugin.
 }
