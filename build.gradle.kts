@@ -80,7 +80,10 @@ tasks.shadowJar {
     archiveClassifier.set("") // Use empty string instead of null.
 }
 
-tasks.jar { archiveClassifier.set("part") } // Applies to root jarfile only.
+tasks.jar { archiveClassifier.set("part") } // Mark the plain jar so shadow jar replaces it.
+
+// Remove the plain jar after shadow jar is built, so only the shaded jar remains.
+tasks.shadowJar { doLast { tasks.jar.get().archiveFile.get().asFile.delete() } }
 
 /* --------------------------- Javac opts ------------------------------- */
 tasks.withType<JavaCompile>().configureEach {
@@ -118,7 +121,7 @@ tasks.named("spotlessCheck") {
     dependsOn("spotlessApply") // Run spotless before checking if spotless ran.
 }
 
-tasks.build { dependsOn(tasks.spotlessApply) } // Build depends on spotless.
+tasks.build { dependsOn(tasks.spotlessApply, tasks.shadowJar) } // Build depends on spotless and shadow.
 
 /* ------------------------------ Eclipse SHIM ------------------------- */
 
