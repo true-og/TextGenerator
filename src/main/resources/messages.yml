@@ -1,4 +1,4 @@
-prefix: "&l&a[TextGenerator] "
+prefix: "&l&7[&aTextGenerator&7]&r "
 success: "♦prefix♦&l&2SUCCESS: "
 denied: "♦prefix♦&l&cDENIED: "
 info: "♦prefix♦&l&6INFO: "

@@ -6,8 +6,8 @@ import org.gradle.kotlin.dsl.provideDelegate
 plugins {
     id("java") // Import Java plugin.
     id("java-library") // Import Java Library plugin.
-    id("com.diffplug.spotless") version "7.0.4" // Import Spotless plugin.
-    id("com.gradleup.shadow") version "8.3.8" // Import Shadow plugin.
+    id("com.diffplug.spotless") version "8.1.0" // Import Spotless plugin.
+    id("com.gradleup.shadow") version "8.3.9" // Import Shadow plugin.
     id("checkstyle") // Import Checkstyle plugin.
     eclipse // Import Eclipse plugin.
 }
@@ -40,8 +40,9 @@ tasks.named<ProcessResources>("processResources") {
 repositories {
     mavenCentral() // Import the Maven Central Maven Repository.
     gradlePluginPortal() // Import the Gradle Plugin Portal Maven Repository.
-    maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
+    maven { url = uri("https://repo.purpurmc.org/snapshots") } // Purpur API repository.
     maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
+    maven { url = uri("https://libraries.minecraft.net") } // Mojang authlib.
     maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
     maven { url = uri("https://repo.codemc.io/repository/maven-snapshots/") }
     maven { url = uri("file://${System.getProperty("user.home")}/.m2/repository") }
@@ -59,10 +60,10 @@ repositories {
 
 /* ---------------------- Java project deps ---------------------------- */
 dependencies {
-    compileOnly("org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT")
+    compileOnly("org.purpurmc.purpur:purpur-api:1.19.4-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.6")
+    compileOnly("com.mojang:authlib:3.11.50") // Mojang authlib for GameProfile/Property.
     implementation("net.wesjd:anvilgui:1.9.2-SNAPSHOT")
-    implementation("org.bstats:bstats-bukkit:3.0.2")
 }
 
 /* ---------------------- Reproducible jars ---------------------------- */
@@ -74,8 +75,9 @@ tasks.withType<AbstractArchiveTask>().configureEach { // Ensure reproducible .ja
 /* ----------------------------- Shadow -------------------------------- */
 tasks.shadowJar {
     archiveBaseName.set("TextGenerator")
+    isEnableRelocation = true
+    relocationPrefix = "${project.group}.shadow"
     archiveClassifier.set("") // Use empty string instead of null.
-    relocate("org.bstats", "de.philw")
 }
 
 tasks.jar { archiveClassifier.set("part") } // Applies to root jarfile only.
@@ -116,61 +118,7 @@ tasks.named("spotlessCheck") {
     dependsOn("spotlessApply") // Run spotless before checking if spotless ran.
 }
 
-/* --------------------------- Remap (SpecialSource) -------------------- */
-val specialSource by configurations.creating
-val mojangMappings by configurations.creating
-val spigotMappings by configurations.creating
-val spigotRemappedMojang by configurations.creating
-val spigotRemappedObf by configurations.creating
-
-dependencies {
-    specialSource("net.md-5:SpecialSource:1.11.5")
-    mojangMappings("org.spigotmc:minecraft-server:1.19.4-R0.1-SNAPSHOT:maps-mojang@txt")
-    spigotMappings("org.spigotmc:minecraft-server:1.19.4-R0.1-SNAPSHOT:maps-spigot@csrg")
-    spigotRemappedMojang("org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT:remapped-mojang@jar")
-    spigotRemappedObf("org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT:remapped-obf@jar")
-}
-
-val remapObf =
-    tasks.register<JavaExec>("remapObf") {
-        dependsOn(tasks.shadowJar)
-        classpath = specialSource
-        mainClass.set("net.md_5.specialsource.SpecialSource")
-        val inJar = tasks.shadowJar.get().archiveFile.get().asFile
-        val outJar = layout.buildDirectory.file("libs/TextGenerator-${project.version}-remapped-obf.jar").get().asFile
-        inputs.file(inJar)
-        outputs.file(outJar)
-        args(
-            "--in-jar",
-            inJar.absolutePath,
-            "--out-jar",
-            outJar.absolutePath,
-            "--srg-in",
-            mojangMappings.singleFile.absolutePath,
-            "--reverse",
-        )
-    }
-
-val remapSpigot =
-    tasks.register<JavaExec>("remapSpigot") {
-        dependsOn(remapObf)
-        classpath = specialSource
-        mainClass.set("net.md_5.specialsource.SpecialSource")
-        val inJar = layout.buildDirectory.file("libs/TextGenerator-${project.version}-remapped-obf.jar").get().asFile
-        val outJar = layout.buildDirectory.file("libs/TextGenerator-${project.version}.jar").get().asFile
-        inputs.file(inJar)
-        outputs.file(outJar)
-        args(
-            "--in-jar",
-            inJar.absolutePath,
-            "--out-jar",
-            outJar.absolutePath,
-            "--srg-in",
-            spigotMappings.singleFile.absolutePath,
-        )
-    }
-
-tasks.build { dependsOn(tasks.spotlessApply, remapSpigot) } // Build depends on spotless and final remap.
+tasks.build { dependsOn(tasks.spotlessApply) } // Build depends on spotless.
 
 /* ------------------------------ Eclipse SHIM ------------------------- */
 

@@ -11,7 +11,6 @@ import de.philw.textgenerator.manager.GeneratedTextsManager;
 import de.philw.textgenerator.manager.MessagesManager;
 import de.philw.textgenerator.ui.SearchUIListener;
 import de.philw.textgenerator.ui.SettingsUIListener;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,8 +22,6 @@ public final class TextGenerator extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-        new Metrics(this, 19024);
 
         INSTANCE = this;
 
