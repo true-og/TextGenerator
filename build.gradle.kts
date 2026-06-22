@@ -1,5 +1,3 @@
-/* This is free and unencumbered software released into the public domain */
-
 import org.gradle.kotlin.dsl.provideDelegate
 
 /* ------------------------------ Plugins ------------------------------ */
